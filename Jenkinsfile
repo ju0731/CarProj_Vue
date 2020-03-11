@@ -9,14 +9,14 @@ pipeline {
 
     stage('Compress') {
       steps {
-        sh '''cd ..
-ls
-if [ -f front.tar ]
+        sh '''if [ -f front.tar ]
 then
     rm front.tar
 fi
-tar -cvf front.tar ./booking-ui
-mv front.tar ./booking-ui'''
+mkdir ../booking-ui
+mv ./* ../booking-ui
+mv ../booking-ui ./
+tar -cvf front.tar ./booking-ui'''
       }
     }
 
