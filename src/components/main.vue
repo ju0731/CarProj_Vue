@@ -25,23 +25,7 @@
 
         <div class="album py-5 bg-light">
             <div class="container">
-
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="card mb-4 shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>CarImage</title><rect width="100%" height="100%" fill="#55595c"/></svg>
-                            <div class="card-body">
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">예약</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">조회</button>
-                                    </div>
-                                    <small class="text-muted">재고 : 81</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -52,36 +36,30 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js" ></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-
 var reservename = "";
-document.onreadystatechange = () => {
-  if (document.readyState == "complete") {
-        //axios.get('http://13.209.20.148:8090/v0.0.3/crbs', {
-        //})
-        axios.get('http://localhost:8090/v0.0.3/crbs', {
-        })
-        .then(function(response){
-
-      for(var i=0; i<response.data.car.length; i++) {
-        var url ="";
-        url = localStorage.getItem(response.data.car[i].name);
-
-        document.querySelector(".row").insertAdjacentHTML("beforeend", "<div class='col-md-4'><div class='card mb-4 shadow-sm'><svg class='bd-placeholder-img card-img-top' width='100%' height='200px' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMidYMid slice' focusable='false' role='img' aria-label='Placeholder: Thumbnail'><title>CarImage</title><image xlink:href='"+url+"' width='100%' height='100%' /></svg><div class='card-body'><p>"+response.data.car[i].name+"</p><small class='text-muted'>"+response.data.car[i].fuel+"</small><br><small class='text-muted'>"+response.data.car[i].size+"</small><p class='card-text'>"+response.data.car[i].price+"/일</p><hr class='mb-4'><div class='d-flex justify-content-between align-items-center'><div class='btn-group'><button class='btn btn-sm btn-outline-secondary' id='car"+i+"' style='width:70px' value='"+i+"'>예약</button></div><small class='badge badge-secondary badge-pill' style='width:70px;height:20px;font-size:13px;'>재고 : "+response.data.car[i].cnt+"</small></div></div></div></div>");
-
-            document.querySelector("#car"+i).addEventListener("click", function () {
-                reservename = this.id;
-                document.querySelector("#reservation").click();
-            });
-        }
-    });
-  }
-}
-
 export default {
     data() {
         return {
             imageUrl: null,
         }
+    },
+    mounted: function() {
+        axios.get('http://ec2-13-209-20-148.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs', {
+            })
+            .then(function(response){
+
+        for(var i=0; i<response.data.car.length; i++) {
+            var url ="";
+            url = localStorage.getItem(response.data.car[i].name);
+
+            document.querySelector(".row").insertAdjacentHTML("beforeend", "<div class='col-md-4'><div class='card mb-4 shadow-sm'><svg class='bd-placeholder-img card-img-top' width='100%' height='200px' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMidYMid slice' focusable='false' role='img' aria-label='Placeholder: Thumbnail'><title>CarImage</title><image xlink:href='"+url+"' width='100%' height='100%' /></svg><div class='card-body'><p>"+response.data.car[i].name+"</p><small class='text-muted'>"+response.data.car[i].fuel+"</small><br><small class='text-muted'>"+response.data.car[i].size+"</small><p class='card-text'>"+response.data.car[i].price+"/일</p><hr class='mb-4'><div class='d-flex justify-content-between align-items-center'><div class='btn-group'><button class='btn btn-sm btn-outline-secondary' id='car"+i+"' style='width:70px' value='"+i+"'>예약</button></div><small class='badge badge-secondary badge-pill' style='width:70px;height:20px;font-size:13px;'>재고 : "+response.data.car[i].cnt+"</small></div></div></div></div>");
+
+                document.querySelector("#car"+i).addEventListener("click", function () {
+                    reservename = this.id;
+                    document.querySelector("#reservation").click();
+                });
+            }
+        });
     },
     methods: {
         onClickuploadCar() {

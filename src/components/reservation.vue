@@ -20,42 +20,26 @@
             <b-list-group-item style="text-align:left;"><div id='carfuel'>연료: 디젤</div></b-list-group-item>
     </b-list-group>
     
+  <br>
     <b-col md="auto" @submit="onSubmit" v-if="show">
-        <p>▲ 예약 날짜</p>
-      <b-calendar  v-model="value" :min="min" :max="max" @context="onContext" locale="en" ></b-calendar>
+        <p>▲ 픽업 날짜</p>
+      <b-calendar  v-model="value"  :min="min" :max="max" @context="onContext" locale="en" ></b-calendar>
+    </b-col>
+    <b-col md="auto" @submit="onSubmit" v-if="show">
+        <p>▲ 반납 날짜</p>
+      <b-calendar  v-model="value1"  :min="min" :max="max" @context="onContext" locale="en" ></b-calendar>
     </b-col>
     <b-col>
-    <b-form-group label="▲ 픽업 시간">
-      <b-form-checkbox-group
-        v-model="selected"
-        :options="options"
-        name="buttons-1"
-        @context="onContext"
-        buttons
-        ></b-form-checkbox-group>
-    </b-form-group>
-    
-    <b-form-group label="▲ 픽업 장소">
-      <b-form-checkbox-group
-        v-model="selected1"
-        :options="options1"
-        name="buttons-2"
-        @context="onContext"
-        buttons
-        ></b-form-checkbox-group>
-    </b-form-group>
-      <p>Value: <b>'{{ value }}'</b></p>
-      <p>Value: <b>'{{ selected }}'</b></p>
-      <p>Value: <b>'{{ selected1 }}'</b></p>
-      
+      <p>예약: <b>'{{ value }}'</b></p>
+      <p>반납: <b>'{{ value1 }}'</b></p>
     </b-col>
   </b-row>
   </b-card>
   
   </b-jumbotron>
   <center>
-  <b-button type="submit" variant="primary" href="#">예약하기</b-button>
-    <b-button variant="success" to="/">다른 차 보러가기</b-button>
+  <b-button type="submit" variant="primary" href="#" @click="onClickreserve">예약하기</b-button>
+  <b-button variant="success" to="/main">다른 차 보러가기</b-button>
   </center>
   <br>
   <br>
@@ -68,24 +52,14 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
 var attrcnt = 0;
-  axios.get('http://localhost:8090/v0.0.3/crbs', {})
-        .then(function(response){
-        console.log("hi");
-        document.querySelector("#carname").innerHTML = response.data.car[attrcnt].name;
-        document.querySelector("#carcnt").innerHTML = "재고: "+response.data.car[attrcnt].cnt+"대";
-        document.querySelector("#carprice").innerHTML = "가격: 하루 "+response.data.car[attrcnt].price+"원";
-        document.querySelector("#carcolor").innerHTML = "색상: "+response.data.car[attrcnt].color;
-        document.querySelector("#cardisplace").innerHTML = "배기량: "+response.data.car[attrcnt].displacement;
-        document.querySelector("#carsize").innerHTML = "사이즈: "+response.data.car[attrcnt].size;
-        document.querySelector("#carfuel").innerHTML = "연료: "+response.data.car[attrcnt].fuel;
-  });
+var mind = "";
+var maxd = "";
 
   export default {
       name:'reservartion',
       computed: {
         param: function () {
           attrcnt = this.$route.params.id;
-            //console.log(this.$route.params.id+"g");
         }
       },
     data() {
@@ -99,34 +73,64 @@ var attrcnt = 0;
       const maxDate = new Date(today)
       maxDate.setMonth(maxDate.getMonth())
       maxDate.setDate(16)
+      mind = minDate
+      maxd = maxDate
       return {
         value: '',
+        value1: '',
         min: minDate,
         max: maxDate,
         context: null,
-        selected: [], // Must be an array reference!
-        options: [
-          { text: '오전10시', value: '10시' },
-          { text: '오전11시', value: '11시' },
-          { text: '오후1시', value: '1시' },
-          { text: '오후2시', value: '2시' }
+        items: [
+         { 차종: '현대자동차 베뉴', 코드: 'CB0001', 가격: '하루 73425원', 색깔: '검은색', 연료:'디젤',연비:'11.3~16.1km'}
         ],
-        selected1: [], // Must be an array reference!
-        options1: [
-          { text: '강남본사', value: '강남' },
-          { text: '야탑본사', value: '야탑' },
-          { text: '잠실본사', value: '잠실' },
-          { text: '종로본사', value: '종로' }
-        ],
-         show: true
+        show: true
       }
-      
+    },
+    mounted: function() {
+     axios.get('http://ec2-13-209-20-148.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs', {})
+            .then(function(response){
+            var url = "";
+            url = localStorage.getItem(response.data.car[attrcnt].name);
+
+            document.querySelector("#carname").innerHTML = response.data.car[attrcnt].name;
+            document.querySelector("#carcnt").innerHTML = "재고: "+response.data.car[attrcnt].cnt+"대";
+            document.querySelector("#carprice").innerHTML = "가격: 하루 "+response.data.car[attrcnt].price+"원";
+            document.querySelector("#carcolor").innerHTML = "색상: "+response.data.car[attrcnt].color;
+            document.querySelector("#cardisplace").innerHTML = "배기량: "+response.data.car[attrcnt].displacement;
+            document.querySelector("#carsize").innerHTML = "사이즈: "+response.data.car[attrcnt].size;
+            document.querySelector("#carfuel").innerHTML = "연료: "+response.data.car[attrcnt].fuel;
+            document.querySelector("#carpic").innerHTML = "<img src='"+url+"' style='width: 30rem; height: 25rem;' align='left'>";
+      });
     },
     methods: {
       onSubmit(evt) {
-        evt.preventDefault()
-        alert("예약이 완료되셨습니다!")
+        evt.preventDefault();
+        alert("예약이 완료되셨습니다!");
+      },
+      onClickreserve() {
+            console.log(mind);
+            console.log(maxd);
+        axios.get('http://ec2-13-209-20-148.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs', {})
+        .then(function(response){
+            //var url = "";
+            //url = localStorage.getItem(response.data.car[attrcnt].name);
+
+            console.log(response.data.car[attrcnt].code);
+       });
+        /*
+            axios.post('http://ec2-13-209-20-148.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/reservations', {
+                "customerId" : "sh1010",
+                "carCode" : document.querySelector("#modelname").value,
+                "startDate" : parseInt(document.querySelector("#price").value),
+                "endDate" : document.querySelector("#modelcolor").value
+            })
+            .then(function(response){
+                alert("예약이 완료되었습니다.");
+                console.log(response); // 객체 형태로 반환. 파싱작업 불필요
+            });*/
       }
     }
   }
 </script>
+

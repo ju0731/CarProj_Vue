@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Home from "../components/Login.vue";
 
 Vue.use(VueRouter);
 
@@ -26,6 +26,24 @@ const routes = [{
         name: "reservation",
         component: () =>
             import ("../components/reservation.vue")
+    },
+    {
+        path: "/Login",
+        name: "Login",
+        component: () =>
+            import ("../components/Login.vue")
+    },
+    {
+        path: "/Register",
+        name: "Register",
+        component: () =>
+            import ("../components/Register.vue")
+    },
+    {
+        path: "/mypage",
+        name: "mypage",
+        component: () =>
+            import ("../components/mypage.vue")
     },
     {
         path: "/about",

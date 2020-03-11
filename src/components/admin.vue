@@ -112,10 +112,23 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="fuelname">연료를 선택해주세요</label>
+                        <label for="modelcolor">배기량을 입력해주세요</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">5</span>
+                            </div>
+                            <input type="text" class="form-control" id="displace" placeholder="ex) 3500" required>
+                            <div class="invalid-feedback" style="width: 100%;">
+                                배기량은 필수항목입니다.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="fuelname">연료를 선택해주세요</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">6</span>
                             </div>
                             <select class="form-control" id="fuelname" required>
                                 <option value="">휘발유</option>
@@ -135,11 +148,24 @@
                         <label for="price">가격을 입력해주세요</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">6</span>
+                                <span class="input-group-text">7</span>
                             </div>
                             <input type="text" class="form-control" id="price" placeholder="ex) 0,000/시간" required>
                             <div class="invalid-feedback" style="width: 100%;">
                                 가격은 필수항목입니다.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="price">재고를 입력해주세요</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">8</span>
+                            </div>
+                            <input type="text" class="form-control" id="modelcnt" placeholder="ex) 10" required>
+                            <div class="invalid-feedback" style="width: 100%;">
+                                재고는 필수항목입니다.
                             </div>
                         </div>
                     </div>
@@ -205,31 +231,20 @@ export default {
             var model = "";
             model = document.querySelector("#modelname").value;
             localStorage.setItem(model, dataUrl); 
-            console.log(document.querySelector("#carnum").value);
-            console.log(document.querySelector("#modelname").value);
-            console.log(document.querySelector("#modelsize").value);
-            console.log(document.querySelector("#modelcolor").value);
-            console.log(document.querySelector("#fuelname").value);
-            console.log(document.querySelector("#price").value);
 
-
-            /*axios.post('http://13.209.20.148:8090/v0.0.3/crbs/reservations/', {
-                "carnum" : document.querySelector("#carnum").value,
-                "modelname" : document.querySelector("#modelname").value,
-                "modelsize" : document.querySelector("#modelsize").value,
-                "modelcolor" : document.querySelector("#modelcolor").value,
-                "fuelname" : document.querySelector("#fuelname").value,
-                "price" : document.querySelector("#price").value
-            })*/
-            axios.post('http://13.209.20.148:8090/v0.0.3/crbs/reservations', {
-                "customerId" : "123",
-                "carCode" : "12가3456",
-                "startDate" : "2019-03-21",
-                "endDate" : "2020-03-21",
+            axios.post('http://ec2-13-209-20-148.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/admins', {
+                "code" : document.querySelector("#carnum").value,
+                "name" : document.querySelector("#modelname").value,
+                "price" : parseInt(document.querySelector("#price").value),
+                "color" : document.querySelector("#modelcolor").value,
+                "fuel" : document.querySelector("#fuelname").value,
+                "displacement" : parseInt(document.querySelector("#displace").value),
+                "size" : document.querySelector("#modelsize").value,
+                "imageUrl" : null,
+                "cnt" : parseInt(document.querySelector("#modelcnt").value)
             })
             .then(function(response){
                 alert(response);
-                console.log('http://13.209.20.148:8090/v0.0.3/crbs/reservations')
                 console.log(response); // 객체 형태로 반환. 파싱작업 불필요
             });
 
