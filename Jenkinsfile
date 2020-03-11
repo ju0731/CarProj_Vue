@@ -9,7 +9,8 @@ pipeline {
 
     stage('Compress') {
       steps {
-        sh '''if [ -f front.tar ]
+        sh '''ls
+if [ -f front.tar ]
 then
     rm front.tar
 fi
