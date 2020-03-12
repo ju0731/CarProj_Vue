@@ -34,6 +34,10 @@
             <span class="spinner-border spinner-border-sm" v-show="loading"></span>
             <span>Login</span>
           </button>
+          <button class="btn btn-primary btn-block" :disabled="loading" @click="onClickRegister">
+            <span class="spinner-border spinner-border-sm" v-show="loading"></span>
+            <span>회원가입</span>
+          </button>
         </div>
         <div class="form-group">
           <div class="alert alert-danger" role="alert" v-if="message">{{message}}</div>
@@ -66,6 +70,9 @@ export default {
     }
   },
   methods: {
+    onClickRegister() {
+      this.$router.push('/Register')
+    },
     handleLogin() {
       this.loading = true;
 
