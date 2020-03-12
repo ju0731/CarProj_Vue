@@ -13,10 +13,7 @@ pipeline {
 then
     rm front.tar
 fi
-mkdir ../booking-ui
-mv ./* ../booking-ui
-mv ../booking-ui ./
-tar -cvf front.tar ./booking-ui'''
+tar -cvf front.tar ./*'''
       }
     }
 
