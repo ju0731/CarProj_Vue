@@ -15,23 +15,23 @@
     </template>
 
     <b-card-body>
-      <b-card-title><div id=id>username</div>,회원님 환영합니다!</b-card-title>
+      <b-card-title><div id='customer_id'>username 회원님 환영합니다!</div></b-card-title>
       <br>
-      <b-card-sub-title class="mb-2">예약현황</b-card-sub-title>
       <b-card-text>
-        username 회원님은 현재, 차량예약이 완료되었습니다.
+        회원님이 예약하신 차량 내역입니다.
       </b-card-text>
     </b-card-body>
 
     <b-list-group flush>
         <hr>
-      <b-list-group-item>현대 자동차 베뉴</b-list-group-item>
-      <b-list-group-item>CB0001</b-list-group-item>
-      <b-list-group-item>픽업 : 2020-03-05</b-list-group-item>
-      <b-list-group-item>반납 : 2020-03-10</b-list-group-item>
+      <b-list-group-item><div id=name>현대 자동차 베뉴</div></b-list-group-item> 
+      <b-list-group-item><div id='car_code'>CB0001</div></b-list-group-item>
+      <b-list-group-item>픽업 :<div id='startdate'> 2020-03-05</div></b-list-group-item>
+      <b-list-group-item>반납 :<div id='endtdate'> 2020-03-10</div></b-list-group-item>
     </b-list-group>
 
     <b-card-body>
+      <b-button type="submit" @click="onGoMainpage" block variant="primary">메인 화면</b-button>
       <b-button type="submit" @click="onReserDelete" block variant="primary">예약 취소</b-button>
     </b-card-body>
 
@@ -49,7 +49,8 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js" ></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-import UserService from '../services/user-service.js'
+var id = "";
+var code = "";
 export default {
   name: 'profile',
   data() {
@@ -58,25 +59,24 @@ export default {
     }
   },
   mounted:function() {
-    UserService.getUserContent().then(
-      response => {
-        this.content = response.data
-      },
-      error => {
-        alert('에러 입니다!')
-        this.content = error.response.data.message
-      }
-    )
     // 여기에서 나의 예약 현황 뿌려주기
-    axios.get('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/v0.0.3/crbs/mybooking/sh1010')
+    id = localStorage.getItem("customer").split("@")[1];
+    axios.get('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/mybooking/'+id)
     .then(function(response){
-      console.log(response);
+      code = response.data[0].code;
+      document.querySelector("#customer_id").innerHTML = id+" 회원님 환영합니다!";
+      document.querySelector("#name").innerHTML = response.data[0].name;
+      document.querySelector("#car_code").innerHTML = "차 코드: "+response.data[0].code;
+      document.querySelector("#startdate").innerHTML = "픽업 :"+response.data[0].reservation.startdate;
+      document.querySelector("#enddate").innerHTML = "반납 : "+response.data[0].reservation.enddate;
     });
   },
   methods:{
-    //여기는 예약 취소 api delete 잘 받았을 떄 -> alert로 예약 취소 받기
+  onGoMainpage() {
+    this.$router.push('/main');
+  },
   onReserDelete(){
-    axios.delete('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/mybooking/sh1010/CRBS0002')
+    axios.delete('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/mybooking/'+id+'/'+code)
   .then(function(response){
     console.log(response);
     alert('예약이 취소되었습니다 !');
