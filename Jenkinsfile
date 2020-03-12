@@ -29,7 +29,7 @@ tar -cvf front.tar ./booking-ui'''
     stage('Create Deployment') {
       steps {
         sh '''aws deploy create-deployment \\
-    --application-name Devops_front \\
+    --application-name CRBS-codedeploy-app \\
     --deployment-config-name CodeDeployDefault.AllAtOnce \\
     --deployment-group-name $DG_NAME \\
     --s3-location bundleType="tar",bucket="landingproject",key=front.tar \\
