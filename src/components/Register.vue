@@ -105,7 +105,7 @@ export default {
       //})
 
 
-      // axios.post('http://ec2-13-209-20-148.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/users',{
+      // axios.post('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/users',{
       //     "NAME":document.querySelector("#name").value,
       //     "ID":document.querySelector("#id").value,
       //     "PASSWORD":document.querySelector("#password").value,

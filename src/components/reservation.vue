@@ -88,7 +88,7 @@ var maxd = "";
       }
     },
     mounted: function() {
-     axios.get('http://ec2-13-209-20-148.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs', {})
+     axios.get('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs', {})
             .then(function(response){
             var url = "";
             url = localStorage.getItem(response.data.car[attrcnt].name);
@@ -109,26 +109,19 @@ var maxd = "";
         alert("예약이 완료되셨습니다!");
       },
       onClickreserve() {
-            console.log(mind);
-            console.log(maxd);
-        axios.get('http://ec2-13-209-20-148.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs', {})
+        axios.get('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs', {})
         .then(function(response){
-            //var url = "";
-            //url = localStorage.getItem(response.data.car[attrcnt].name);
-
-            console.log(response.data.car[attrcnt].code);
-       });
-        /*
-            axios.post('http://ec2-13-209-20-148.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/reservations', {
-                "customerId" : "sh1010",
-                "carCode" : document.querySelector("#modelname").value,
-                "startDate" : parseInt(document.querySelector("#price").value),
-                "endDate" : document.querySelector("#modelcolor").value
+            axios.post('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/reservations', {
+                "customerId" : "auto",
+                "carCode" : response.data.car[attrcnt].code,
+                "startDate" : mind,
+                "endDate" : maxd
             })
             .then(function(response){
                 alert("예약이 완료되었습니다.");
-                console.log(response); // 객체 형태로 반환. 파싱작업 불필요
-            });*/
+            });
+       });
+       this.$router.push('/main');
       }
     }
   }

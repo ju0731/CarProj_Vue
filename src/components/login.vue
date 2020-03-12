@@ -74,6 +74,7 @@ export default {
         this.$store.dispatch('auth/login', this.user).then(
           () => {
             alert('환영합니다!')
+            localStorage.setItem("customer", "customer@"+this.user.id)
             this.$router.push('/main')
           },
           error => {

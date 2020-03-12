@@ -86,7 +86,7 @@
                                 <span class="input-group-text">3</span>
                             </div>
                             <select class="form-control" id="modelsize" required>
-                                <option value="">경차</option>
+                                <option selected="selected">경차</option>
                                 <option>소형</option>
                                 <option>중형</option>
                                 <option>대형</option>
@@ -131,7 +131,7 @@
                                 <span class="input-group-text">6</span>
                             </div>
                             <select class="form-control" id="fuelname" required>
-                                <option value="">휘발유</option>
+                                <option selected="selected">휘발유</option>
                                 <option>경유</option>
                                 <option>하이브리드</option>
                                 <option>전기</option>
@@ -232,7 +232,7 @@ export default {
             model = document.querySelector("#modelname").value;
             localStorage.setItem(model, dataUrl); 
 
-            axios.post('http://ec2-13-209-20-148.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/admins', {
+            axios.post('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/admins', {
                 "code" : document.querySelector("#carnum").value,
                 "name" : document.querySelector("#modelname").value,
                 "price" : parseInt(document.querySelector("#price").value),
@@ -244,11 +244,9 @@ export default {
                 "cnt" : parseInt(document.querySelector("#modelcnt").value)
             })
             .then(function(response){
-                alert(response);
-                console.log(response); // 객체 형태로 반환. 파싱작업 불필요
+                alert("차량등록 완료!!");
             });
-
-            console.log("submit");
+            this.$router.push('/main');
         }
     }
 }

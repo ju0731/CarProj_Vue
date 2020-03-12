@@ -17,8 +17,9 @@
                 <p class="lead text-muted">Select your car from list below.</p>
                 <p>
                     <a href="#" class="btn btn-primary my-2" @click="onClickuploadCar">차량 등록</a>
-                    <a id="reservation" @click="onClickReservation" style="padding-left: 10px;"></a>
-                    <a href="#" class="btn btn-secondary my-2">예약 확인</a>
+                    <a id="reservation" @click="onClickReservation" style="padding-left: 5px;"></a>
+                    <a id="delete" @click="onClickDelete" style="padding-left: 5px;"></a>
+                    <a href="#" class="btn btn-secondary my-2" @click="onClickmyPage">예약 확인</a>
                 </p>
             </div>
         </section>
@@ -37,6 +38,7 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
 var reservename = "";
+var deletename = "";
 export default {
     data() {
         return {
@@ -44,7 +46,10 @@ export default {
         }
     },
     mounted: function() {
-        axios.get('http://ec2-13-209-20-148.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs', {
+        //const obj = JSON.parse("../assets/var.json");
+        //console.log(obj.url);
+
+        axios.get('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs', {
             })
             .then(function(response){
 
@@ -52,11 +57,15 @@ export default {
             var url ="";
             url = localStorage.getItem(response.data.car[i].name);
 
-            document.querySelector(".row").insertAdjacentHTML("beforeend", "<div class='col-md-4'><div class='card mb-4 shadow-sm'><svg class='bd-placeholder-img card-img-top' width='100%' height='200px' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMidYMid slice' focusable='false' role='img' aria-label='Placeholder: Thumbnail'><title>CarImage</title><image xlink:href='"+url+"' width='100%' height='100%' /></svg><div class='card-body'><p>"+response.data.car[i].name+"</p><small class='text-muted'>"+response.data.car[i].fuel+"</small><br><small class='text-muted'>"+response.data.car[i].size+"</small><p class='card-text'>"+response.data.car[i].price+"/일</p><hr class='mb-4'><div class='d-flex justify-content-between align-items-center'><div class='btn-group'><button class='btn btn-sm btn-outline-secondary' id='car"+i+"' style='width:70px' value='"+i+"'>예약</button></div><small class='badge badge-secondary badge-pill' style='width:70px;height:20px;font-size:13px;'>재고 : "+response.data.car[i].cnt+"</small></div></div></div></div>");
+            document.querySelector(".row").insertAdjacentHTML("beforeend", "<div class='col-md-4'><div class='card mb-4 shadow-sm'><svg class='bd-placeholder-img card-img-top' width='100%' height='200px' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMidYMid slice' focusable='false' role='img' aria-label='Placeholder: Thumbnail'><title>CarImage</title><image xlink:href='"+url+"' width='100%' height='100%' /></svg><div class='card-body'><p>"+response.data.car[i].name+"</p><small class='text-muted'>"+response.data.car[i].fuel+"</small><br><small class='text-muted'>"+response.data.car[i].size+"</small><p class='card-text'>"+response.data.car[i].price+"/일</p><hr class='mb-4'><div class='d-flex justify-content-between align-items-center'><div class='btn-group'><button class='btn btn-sm btn-outline-secondary' id='car"+i+"' style='width:70px' value='"+i+"'>예약</button><button class='btn btn-sm btn-outline-secondary' id='del"+i+"' style='width:70px' value='"+i+"'>삭제</button></div><small class='badge badge-secondary badge-pill' style='width:70px;height:20px;font-size:13px;'>재고 : "+response.data.car[i].cnt+"</small></div></div></div></div>");
 
                 document.querySelector("#car"+i).addEventListener("click", function () {
                     reservename = this.id;
                     document.querySelector("#reservation").click();
+                });
+                document.querySelector("#del"+i).addEventListener("click", function () {
+                    deletename = this.id;
+                    document.querySelector("#delete").click();
                 });
             }
         });
@@ -65,9 +74,25 @@ export default {
         onClickuploadCar() {
             this.$router.push('/admin');
         },
+        onClickmyPage() {
+            this.$router.push('/mypage');
+        },
         onClickReservation() {
             console.log(document.querySelector("#"+reservename).value);
             this.$router.push('/reservation/'+document.querySelector("#"+reservename).value);;
+        },
+        onClickDelete() {
+            var delnum = deletename.split("del")[1];
+
+            axios.get('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs', {
+            })
+            .then(function(response){
+                console.log(response.data.car[delnum].code);
+                axios.delete("http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/admins/"+response.data.car[delnum].code);
+                localstorage.removeitem(response.data.car[delnum].name);
+            });
+            alert("삭제되었습니다.");
+            Location.reload() ;
         }
     }
 }
