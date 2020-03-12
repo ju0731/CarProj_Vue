@@ -94,7 +94,6 @@ export default {
               this.successful = true
             },
             error => {
-
               this.message = error.message
               this.successful = false
             }
