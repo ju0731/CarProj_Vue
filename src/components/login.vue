@@ -45,7 +45,7 @@
 
 <script>
 import User from '../models/user.js'
-//tmp
+
 export default {
   name: 'login',
   computed: {
