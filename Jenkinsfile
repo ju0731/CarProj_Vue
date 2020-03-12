@@ -26,5 +26,14 @@ tar -cvf front.tar ./booking-ui'''
       }
     }
 
+    stage('test') {
+      steps {
+        sh 'echo $DG_NAME'
+      }
+    }
+
+  }
+  environment {
+    DG_NAME = 'something'
   }
 }
