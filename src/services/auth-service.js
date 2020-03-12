@@ -29,8 +29,6 @@ class AuthService {
         })
 
         .then(function(response) {
-            alert(response);
-            console.log(response); // 객체 형태로 반환. 파싱작업 불필요
             console.log("submit");
         });
 
