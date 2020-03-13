@@ -11,14 +11,14 @@ hooks:
   AfterInstall:
     - location: scripts/afterInstall.sh
       timeout: 150
-      runas: root
+      runas: ec2-user
     - location: scripts/afterInstall2.sh
       timeout: 150
-      runas: root
+      runas: ec2-user
   ApplicationStart:
     - location: scripts/applicationStart.sh
       timeout: 150
-      runas: root
+      runas: ec2-user
 permissions:
     - object: /
       pattern: "**"
