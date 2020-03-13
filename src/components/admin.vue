@@ -230,7 +230,7 @@ export default {
             //console.log(dataUrl);
             var model = "";
             model = document.querySelector("#modelname").value;
-            //localStorage.setItem(model, dataUrl); 
+            //localStorage.setItem(model, dataUrl);
 
             axios.post('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/admins', {
                 "code" : document.querySelector("#carnum").value,

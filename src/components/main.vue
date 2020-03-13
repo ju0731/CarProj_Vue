@@ -46,20 +46,17 @@ export default {
         }
     },
     mounted: function() {
-        //const obj = JSON.parse("../assets/var.json");
+        //var obj = JSON.parse("@/assets/var.json");
         //console.log(obj.url);
+
         axios.get('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs', {
             })
             .then(function(response){
 
         for(var i=0; i<response.data.car.length; i++) {
-            var url ="";
-            //url = localStorage.getItem(response.data.car[i].name);
-            url = response.data.car[i].url;
-
             var id = localStorage.getItem("customer").split("@")[1];
             if(id=="auto") {
-            document.querySelector(".row").insertAdjacentHTML("beforeend", "<div class='col-md-4'><div class='card mb-4 shadow-sm'><svg class='bd-placeholder-img card-img-top' width='100%' height='200px' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMidYMid slice' focusable='false' role='img' aria-label='Placeholder: Thumbnail'><title>CarImage</title><image xlink:href='"+url+"' width='100%' height='100%' /></svg><div class='card-body'><p>"+response.data.car[i].name+"</p><small class='text-muted'>"+response.data.car[i].fuel+"</small><br><small class='text-muted'>"+response.data.car[i].size+"</small><p class='card-text'>"+response.data.car[i].price+"/일</p><hr class='mb-4'><div class='d-flex justify-content-between align-items-center'><div class='btn-group'><button class='btn btn-sm btn-outline-secondary' id='car"+i+"' style='width:70px' value='"+i+"'>예약</button><button class='btn btn-sm btn-outline-secondary' id='del"+i+"' style='width:70px' value='"+i+"'>삭제</button></div><small class='badge badge-secondary badge-pill' style='width:70px;height:20px;font-size:13px;'>재고 : "+response.data.car[i].cnt+"</small></div></div></div></div>");
+            document.querySelector(".row").insertAdjacentHTML("beforeend", "<div class='col-md-4'><div class='card mb-4 shadow-sm'><svg class='bd-placeholder-img card-img-top' width='100%' height='200px' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMidYMid slice' focusable='false' role='img' aria-label='Placeholder: Thumbnail'><title>CarImage</title><image xlink:href='"+response.data.car[i].imageUrl+"' width='100%' height='100%' /></svg><div class='card-body'><p>"+response.data.car[i].name+"</p><small class='text-muted'>"+response.data.car[i].fuel+"</small><br><small class='text-muted'>"+response.data.car[i].size+"</small><p class='card-text'>"+response.data.car[i].price+"/일</p><hr class='mb-4'><div class='d-flex justify-content-between align-items-center'><div class='btn-group'><button class='btn btn-sm btn-outline-secondary' id='car"+i+"' style='width:70px' value='"+i+"'>예약</button><button class='btn btn-sm btn-outline-secondary' id='del"+i+"' style='width:70px' value='"+i+"'>삭제</button></div><small class='badge badge-secondary badge-pill' style='width:70px;height:20px;font-size:13px;'>재고 : "+response.data.car[i].cnt+"</small></div></div></div></div>");
 
                 document.querySelector("#car"+i).addEventListener("click", function () {
                     reservename = this.id;
@@ -71,7 +68,7 @@ export default {
                 });
             }
             else {
-             document.querySelector(".row").insertAdjacentHTML("beforeend", "<div class='col-md-4'><div class='card mb-4 shadow-sm'><svg class='bd-placeholder-img card-img-top' width='100%' height='200px' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMidYMid slice' focusable='false' role='img' aria-label='Placeholder: Thumbnail'><title>CarImage</title><image xlink:href='"+url+"' width='100%' height='100%' /></svg><div class='card-body'><p>"+response.data.car[i].name+"</p><small class='text-muted'>"+response.data.car[i].fuel+"</small><br><small class='text-muted'>"+response.data.car[i].size+"</small><p class='card-text'>"+response.data.car[i].price+"/일</p><hr class='mb-4'><div class='d-flex justify-content-between align-items-center'><div class='btn-group'><button class='btn btn-sm btn-outline-secondary' id='car"+i+"' style='width:70px' value='"+i+"'>예약</button></div><small class='badge badge-secondary badge-pill' style='width:70px;height:20px;font-size:13px;'>재고 : "+response.data.car[i].cnt+"</small></div></div></div></div>");
+             document.querySelector(".row").insertAdjacentHTML("beforeend", "<div class='col-md-4'><div class='card mb-4 shadow-sm'><svg class='bd-placeholder-img card-img-top' width='100%' height='200px' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMidYMid slice' focusable='false' role='img' aria-label='Placeholder: Thumbnail'><title>CarImage</title><image xlink:href='"+response.data.car[i].imageUrl+"' width='100%' height='100%' /></svg><div class='card-body'><p>"+response.data.car[i].name+"</p><small class='text-muted'>"+response.data.car[i].fuel+"</small><br><small class='text-muted'>"+response.data.car[i].size+"</small><p class='card-text'>"+response.data.car[i].price+"/일</p><hr class='mb-4'><div class='d-flex justify-content-between align-items-center'><div class='btn-group'><button class='btn btn-sm btn-outline-secondary' id='car"+i+"' style='width:70px' value='"+i+"'>예약</button></div><small class='badge badge-secondary badge-pill' style='width:70px;height:20px;font-size:13px;'>재고 : "+response.data.car[i].cnt+"</small></div></div></div></div>");
 
                 document.querySelector("#car"+i).addEventListener("click", function () {
                     reservename = this.id;
@@ -111,12 +108,10 @@ export default {
             axios.get('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs', {
             })
             .then(function(response){
-                alert(response.data.car[delnum].code);
                 axios.delete("http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/admins/"+response.data.car[delnum].code);
-                localStorage.removeItem(response.data.car[delnum].name);
+                //localStorage.removeItem(response.data.car[delnum].name);
+                alert("삭제되었습니다.");
             });
-            alert("삭제되었습니다.");
-            //window.location.reload();
         },
         onClickLogout() {
             localStorage.removeItem("customer");
