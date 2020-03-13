@@ -1,7 +1,11 @@
 import axios from 'axios'
 import authHeader from './auth-header'
+import urlList from '../assets/url.json'
+const urlJSON = JSON.stringify(urlList)
+const parseURL = JSON.parse(urlJSON);
 
-const API_URL = 'http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/users';
+var DBurl = parseURL.url;
+const API_URL = DBurl + '/v0.0.3/crbs/users';
 
 class UserService {
     getUserContent() {

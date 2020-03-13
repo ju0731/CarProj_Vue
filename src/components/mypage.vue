@@ -26,8 +26,8 @@
         <hr>
       <b-list-group-item><div id=name>차량정보가없습니다</div></b-list-group-item> 
       <b-list-group-item><div id='car_code'>차량정보가없습니다</div></b-list-group-item>
-      <b-list-group-item>픽업 :<div id='startdate'> </div></b-list-group-item>
-      <b-list-group-item>반납 :<div id='endtdate'> </div></b-list-group-item>
+      <b-list-group-item><div id='startdate'>차량정보가없습니다 </div></b-list-group-item>
+      <b-list-group-item><div id='enddate'>차량정보가없습니다 </div></b-list-group-item>
     </b-list-group>
 
     <b-card-body>
@@ -49,6 +49,11 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js" ></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
+import urlList from '../assets/url.json'
+const urlJSON=JSON.stringify(urlList)
+const parseURL=JSON.parse(urlJSON);
+
+var DBurl = parseURL.url;
 var id = "";
 var code = "";
 export default {
@@ -61,15 +66,16 @@ export default {
   mounted:function() {
     // 여기에서 나의 예약 현황 뿌려주기
     id = localStorage.getItem("customer").split("@")[1];
-    axios.get('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/mybooking/'+id)
+    axios.get(DBurl+'/v0.0.3/crbs/mybooking/'+id)
     .then(function(response){
       //code = response.data[0].code;
+      console.log(response);
       var cnt = response.data.length-1;
       document.querySelector("#customer_id").innerHTML = id+" 회원님 환영합니다!";
       document.querySelector("#name").innerHTML = response.data[cnt].name;
       document.querySelector("#car_code").innerHTML = "차 코드: "+response.data[cnt].code;
-      document.querySelector("#startdate").innerHTML = "픽업 :"+response.data[cnt].reservation.startdate;
-      document.querySelector("#enddate").innerHTML = "반납 : "+response.data[cnt].reservation.enddate;
+      document.querySelector("#startdate").innerHTML = "픽업 : "+response.data[cnt].startDate;
+      document.querySelector("#enddate").innerHTML = "반납 : "+response.data[cnt].endDate;
     });
   },
   methods:{
@@ -77,7 +83,7 @@ export default {
     this.$router.push('/main');
   },
   onReserDelete(){
-    axios.delete('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/mybooking/'+id+'/'+code)
+    axios.delete(DBurl+'/v0.0.3/crbs/mybooking/'+id+'/'+code)
   .then(function(response){
     console.log(response);
     alert('예약이 취소되었습니다 !');

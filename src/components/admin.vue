@@ -191,9 +191,14 @@
     </main>
 </template>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js" ></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js" ></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
+import urlList from '../assets/url.json'
+const urlJSON=JSON.stringify(urlList)
+const parseURL=JSON.parse(urlJSON);
+
+var DBurl = parseURL.url;
 var dataUrl;
 export default {
     data() {
@@ -232,7 +237,7 @@ export default {
             model = document.querySelector("#modelname").value;
             //localStorage.setItem(model, dataUrl);
 
-            axios.post('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/admins', {
+            axios.post(DBurl+'/v0.0.3/crbs/admins', {
                 "code" : document.querySelector("#carnum").value,
                 "name" : document.querySelector("#modelname").value,
                 "price" : parseInt(document.querySelector("#price").value),

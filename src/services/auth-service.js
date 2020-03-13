@@ -1,9 +1,13 @@
 import axios from 'axios'
+import urlList from '../assets/url.json'
+const urlJSON = JSON.stringify(urlList)
+const parseURL = JSON.parse(urlJSON);
 
+var DBurl = parseURL.url;
 
 class AuthService {
     login(user) {
-        return axios.post('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/users/signin', {
+        return axios.post(DBurl + '/v0.0.3/crbs/users/signin', {
                 id: user.id,
                 password: user.password
             })
@@ -21,7 +25,7 @@ class AuthService {
     }
 
     register(user) {
-        return axios.post('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/users', {
+        return axios.post(DBurl + '/v0.0.3/crbs/users', {
             name: user.name,
             id: user.id,
             password: user.password,

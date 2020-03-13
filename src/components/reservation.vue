@@ -51,6 +51,11 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js" ></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
+import urlList from '../assets/url.json'
+const urlJSON=JSON.stringify(urlList)
+const parseURL=JSON.parse(urlJSON);
+
+var DBurl = parseURL.url;
 var attrcnt = 0;
 var mind = "";
 var maxd = "";
@@ -88,7 +93,7 @@ var maxd = "";
       }
     },
     mounted: function() {
-     axios.get('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs', {})
+     axios.get(DBurl+'/v0.0.3/crbs', {})
             .then(function(response){
             var url = "";
             url = response.data.car[attrcnt].imageUrl;
@@ -109,9 +114,9 @@ var maxd = "";
         alert("예약이 완료되셨습니다!");
       },
       onClickreserve() {
-        axios.get('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs', {})
+        axios.get(DBurl+'/v0.0.3/crbs', {})
         .then(function(response){
-            axios.post('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/reservations', {
+            axios.post(DBurl+'/v0.0.3/crbs/reservations', {
                 "customerId" : localStorage.getItem("customer").split("@")[1],
                 "carCode" : response.data.car[attrcnt].code,
                 "startDate" : mind,

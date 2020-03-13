@@ -35,8 +35,11 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js" ></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-//setTimeout("location.reload()", 4000)
+import urlList from '../assets/url.json'
+const urlJSON=JSON.stringify(urlList)
+const parseURL=JSON.parse(urlJSON);
 
+var DBurl = parseURL.url;
 var reservename = "";
 var deletename = "";
 export default {
@@ -46,10 +49,7 @@ export default {
         }
     },
     mounted: function() {
-        //var obj = JSON.parse("@/assets/var.json");
-        //console.log(obj.url);
-
-        axios.get('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs', {
+        axios.get(DBurl+'/v0.0.3/crbs', {
             })
             .then(function(response){
 
@@ -105,10 +105,10 @@ export default {
         onClickDelete() {
             var delnum = deletename.split("del")[1];
 
-            axios.get('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs', {
+            axios.get(DBurl+'/v0.0.3/crbs', {
             })
             .then(function(response){
-                axios.delete("http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/admins/"+response.data.car[delnum].code);
+                axios.delete(DBurl+"/v0.0.3/crbs/admins/"+response.data.car[delnum].code);
                 //localStorage.removeItem(response.data.car[delnum].name);
                 alert("삭제되었습니다.");
             });
