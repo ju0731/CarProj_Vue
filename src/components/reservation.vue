@@ -119,7 +119,10 @@ var maxd = "";
             })
             .then(function(response){
                 alert("예약이 완료되었습니다.");
-            });
+            })
+            .catch(function(error) {
+                alert("이미 예약된 차량입니다.");
+            })
        });
             this.$router.push('/main');
       }

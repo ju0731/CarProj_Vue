@@ -83,7 +83,7 @@ export default {
     alert('예약이 취소되었습니다 !');
   })
   .catch(function (error) {
-    alert(error.response);
+    alert("당일취소는 불가능합니다!");
   });
 }
 },
