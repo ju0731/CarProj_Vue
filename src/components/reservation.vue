@@ -121,7 +121,7 @@ var maxd = "";
                 alert("예약이 완료되었습니다.");
             });
        });
-       this.$router.push('/main');
+            this.$router.push('/main');
       }
     }
   }

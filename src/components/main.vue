@@ -35,6 +35,8 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js" ></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
+setTimeout("location.reload()", 3000)
+
 var reservename = "";
 var deletename = "";
 export default {
@@ -52,7 +54,8 @@ export default {
 
         for(var i=0; i<response.data.car.length; i++) {
             var url ="";
-            url = localStorage.getItem(response.data.car[i].name);
+            //url = localStorage.getItem(response.data.car[i].name);
+            url = response.data.car[i].url;
 
             var id = localStorage.getItem("customer").split("@")[1];
             if(id=="auto") {
@@ -108,12 +111,12 @@ export default {
             axios.get('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs', {
             })
             .then(function(response){
-                console.log(response.data.car[delnum].code);
+                alert(response.data.car[delnum].code);
                 axios.delete("http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/admins/"+response.data.car[delnum].code);
                 localStorage.removeItem(response.data.car[delnum].name);
             });
             alert("삭제되었습니다.");
-            window.location.reload();
+            //window.location.reload();
         },
         onClickLogout() {
             localStorage.removeItem("customer");

@@ -80,6 +80,9 @@ export default {
   .then(function(response){
     console.log(response);
     alert('예약이 취소되었습니다 !');
+  })
+  .catch(function (error) {
+    alert(error.response);
   });
 }
 },
