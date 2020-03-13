@@ -13,7 +13,7 @@ pipeline {
 then
     rm front.tar
 fi
-tar -cvf front.tar ./*'''
+tar -cvf front.tar .'''
       }
     }
 
