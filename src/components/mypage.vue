@@ -63,12 +63,13 @@ export default {
     id = localStorage.getItem("customer").split("@")[1];
     axios.get('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/mybooking/'+id)
     .then(function(response){
-      code = response.data[0].code;
+      //code = response.data[0].code;
+      var cnt = response.data.length-1;
       document.querySelector("#customer_id").innerHTML = id+" 회원님 환영합니다!";
-      document.querySelector("#name").innerHTML = response.data[0].name;
-      document.querySelector("#car_code").innerHTML = "차 코드: "+response.data[0].code;
-      document.querySelector("#startdate").innerHTML = "픽업 :"+response.data[0].reservation.startdate;
-      document.querySelector("#enddate").innerHTML = "반납 : "+response.data[0].reservation.enddate;
+      document.querySelector("#name").innerHTML = response.data[cnt].name;
+      document.querySelector("#car_code").innerHTML = "차 코드: "+response.data[cnt].code;
+      document.querySelector("#startdate").innerHTML = "픽업 :"+response.data[cnt].reservation.startdate;
+      document.querySelector("#enddate").innerHTML = "반납 : "+response.data[cnt].reservation.enddate;
     });
   },
   methods:{

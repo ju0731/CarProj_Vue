@@ -91,7 +91,7 @@ var maxd = "";
      axios.get('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs', {})
             .then(function(response){
             var url = "";
-            url = localStorage.getItem(response.data.car[attrcnt].name);
+            url = response.data.car[attrcnt].imageUrl;
 
             document.querySelector("#carname").innerHTML = response.data.car[attrcnt].name;
             document.querySelector("#carcnt").innerHTML = "재고: "+response.data.car[attrcnt].cnt+"대";
@@ -112,7 +112,7 @@ var maxd = "";
         axios.get('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs', {})
         .then(function(response){
             axios.post('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs/reservations', {
-                "customerId" : "auto",
+                "customerId" : localStorage.getItem("customer").split("@")[1],
                 "carCode" : response.data.car[attrcnt].code,
                 "startDate" : mind,
                 "endDate" : maxd

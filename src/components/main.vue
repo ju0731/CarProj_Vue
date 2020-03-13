@@ -21,7 +21,7 @@
                 </p>
             </div>
         </section>
-
+        <div><b-button variant="btn btn-sm btn-outline-secondary" style="margin-left:1000px" @click="onClickReset">새로고침</b-button></div>
         <div class="album py-5 bg-light">
             <div class="container">
                 <div class="row">
@@ -35,7 +35,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js" ></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-setTimeout("location.reload()", 3000)
+//setTimeout("location.reload()", 4000)
 
 var reservename = "";
 var deletename = "";
@@ -118,6 +118,9 @@ export default {
             alert("로그아웃 되었습니다.");
             this.$router.push('/login');
         },
+        onClickReset() {
+            location.reload()
+        }
     }
 }
 

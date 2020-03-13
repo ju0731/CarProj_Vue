@@ -245,8 +245,11 @@ export default {
             })
             .then(function(response){
                 alert("차량등록 완료!!");
+            })
+            .catch(function(error){
+                alert("차량코드 중복 오류입니다!");
             });
-            this.$router.push('/main');
+            //this.$router.push('/main');
         }
     }
 }
