@@ -24,10 +24,10 @@
 
     <b-list-group flush>
         <hr>
-      <b-list-group-item><div id=name>현대 자동차 베뉴</div></b-list-group-item> 
-      <b-list-group-item><div id='car_code'>CB0001</div></b-list-group-item>
-      <b-list-group-item>픽업 :<div id='startdate'> 2020-03-05</div></b-list-group-item>
-      <b-list-group-item>반납 :<div id='endtdate'> 2020-03-10</div></b-list-group-item>
+      <b-list-group-item><div id=name>차량정보가없습니다</div></b-list-group-item> 
+      <b-list-group-item><div id='car_code'>차량정보가없습니다</div></b-list-group-item>
+      <b-list-group-item>픽업 :<div id='startdate'> </div></b-list-group-item>
+      <b-list-group-item>반납 :<div id='endtdate'> </div></b-list-group-item>
     </b-list-group>
 
     <b-card-body>
