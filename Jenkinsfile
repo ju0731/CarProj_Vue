@@ -19,7 +19,8 @@ tar -cvf front.tar ./*'''
 
     stage('S3 Upload') {
       steps {
-        sh 'aws s3 cp ./front.tar s3://landingproject/front.tar'
+        sh '''aws s3 rm s3://landingproject/front.tar
+aws s3 cp ./front.tar s3://landingproject/front.tar'''
       }
     }
 
