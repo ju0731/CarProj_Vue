@@ -35,7 +35,7 @@ class AuthService {
         .then(function(response) {
             console.log(response);
             console.log("submit");
-        });
+        })
 
     }
 

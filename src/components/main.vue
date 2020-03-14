@@ -49,9 +49,10 @@ export default {
         }
     },
     mounted: function() {
-        axios.get(DBurl+'/v0.0.3/crbs', {
+        axios.get('http://localhost:3000/users', {
             })
             .then(function(response){
+                console.log(response);
 
         for(var i=0; i<response.data.car.length; i++) {
             var id = localStorage.getItem("customer").split("@")[1];
