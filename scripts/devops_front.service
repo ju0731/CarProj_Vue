@@ -1,10 +1,10 @@
 [Unit]
-Description=Systemd Service for Bespin Global Devops Landing Project
+Description=Systemd Service for Bespin Global Devops Landing Project - Front
 After=network.target
 
 [Service]
 Type=simple
-ExecStart=/bin/bash /home/ec2-user/front/scripts/daemon.sh
+ExecStart=/bin/bash /home/ec2-user/front/scripts/front_daemon.sh
 Restart=on-failure
 
 [Install]
