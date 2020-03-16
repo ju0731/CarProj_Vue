@@ -35,11 +35,6 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js" ></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-import urlList from '../assets/url.json'
-const urlJSON=JSON.stringify(urlList)
-const parseURL=JSON.parse(urlJSON);
-
-var DBurl = parseURL.url;
 var reservename = "";
 var deletename = "";
 export default {
@@ -49,10 +44,9 @@ export default {
         }
     },
     mounted: function() {
-        axios.get('http://localhost:3000/users', {
+        axios.get('http://localhost:3000/cars', {
             })
             .then(function(response){
-                console.log(response);
 
         for(var i=0; i<response.data.car.length; i++) {
             var id = localStorage.getItem("customer").split("@")[1];
@@ -106,11 +100,10 @@ export default {
         onClickDelete() {
             var delnum = deletename.split("del")[1];
 
-            axios.get(DBurl+'/v0.0.3/crbs', {
+            axios.get('http://localhost:3000/cars', {
             })
             .then(function(response){
-                axios.delete(DBurl+"/v0.0.3/crbs/admins/"+response.data.car[delnum].code);
-                //localStorage.removeItem(response.data.car[delnum].name);
+                axios.delete("http://localhost:3000/delcar?id="+response.data.car[delnum].code);
                 alert("삭제되었습니다.");
             });
         },

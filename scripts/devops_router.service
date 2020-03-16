@@ -4,8 +4,11 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/bin/bash /home/ec2-user/front/scripts/router_daemon.sh
+ExecStart=/usr/bin/node /home/ec2-user/front/index.js
 Restart=on-failure
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=DEVOPS_ROUTER
 
 [Install]
 WantedBy=multi-user.target
