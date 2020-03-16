@@ -20,7 +20,7 @@ app.use(function(req, res, next) { // 1
 });
 
 app.get('/users', function(req, res) {
-    axios.get('http://ec2-13-209-82-206.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs', {})
+    axios.get('http://internal-CRBS-internal-1483526971.ap-northeast-2.elb.amazonaws.com:8090/v0.0.3/crbs', {})
         .then(function(response) {
             res.json(response.data);
             console.log(response.data);
