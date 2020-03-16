@@ -1,6 +1,6 @@
 [Unit]
 Description=Systemd Service for Bespin Global Devops Landing Project - Router
-After=network.target devops_front
+After=network.target
 
 [Service]
 Type=simple
