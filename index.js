@@ -17,7 +17,7 @@ var httpServer = http.createServer(app);
 httpServer.listen(port, function() {
     console.log(`Server is running on ${port}`);
 });*/
-var url = "http://ec2-13-124-252-33.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs";
+var url = "http://internal-CRBS-internal-1483526971.ap-northeast-2.elb.amazonaws.com:8090/v0.0.3/crbs";
 var port = 3000;
 
 app.use(express.json())
