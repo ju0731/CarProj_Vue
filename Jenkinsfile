@@ -13,6 +13,7 @@ pipeline {
 then
     rm front.tar
 fi
+cp ../front.json ./
 tar -cvf front.tar .'''
       }
     }
