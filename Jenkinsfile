@@ -14,7 +14,7 @@ then
     rm front.tar
 fi
 cp ../front.json ./
-tar -cvf front.tar . --exclude=\'.git/*\''''
+tar -cvf front.tar --exclude=\'.git/*\' .'''
       }
     }
 
