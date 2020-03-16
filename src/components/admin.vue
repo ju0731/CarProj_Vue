@@ -194,11 +194,6 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js" ></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-import urlList from '../assets/url.json'
-const urlJSON=JSON.stringify(urlList)
-const parseURL=JSON.parse(urlJSON);
-
-var DBurl = parseURL.url;
 var dataUrl;
 export default {
     data() {
@@ -235,9 +230,19 @@ export default {
             //console.log(dataUrl);
             var model = "";
             model = document.querySelector("#modelname").value;
-            //localStorage.setItem(model, dataUrl);
 
-            axios.post(DBurl+'/v0.0.3/crbs/admins', {
+            console.log(document.querySelector("#carnum").value);
+            console.log(document.querySelector("#modelname").value);
+            console.log(document.querySelector("#price").value);
+            console.log(document.querySelector("#modelcolor").value);
+            console.log(document.querySelector("#fuelname").value);
+            console.log(document.querySelector("#displace").value);
+            console.log(document.querySelector("#modelsize").value);
+            console.log(dataUrl);
+            console.log(document.querySelector("#modelcnt").value);
+            
+            axios.post('http://localhost:3000/enroll', {
+                
                 "code" : document.querySelector("#carnum").value,
                 "name" : document.querySelector("#modelname").value,
                 "price" : parseInt(document.querySelector("#price").value),
@@ -245,16 +250,18 @@ export default {
                 "fuel" : document.querySelector("#fuelname").value,
                 "displacement" : parseInt(document.querySelector("#displace").value),
                 "size" : document.querySelector("#modelsize").value,
-                "imageUrl" : dataUrl,
+                "imageUrl" : "TEST",
                 "cnt" : parseInt(document.querySelector("#modelcnt").value)
             })
             .then(function(response){
+                console.log(response.data);
                 alert("차량등록 완료!!");
             })
             .catch(function(error){
                 alert("차량코드 중복 오류입니다!");
             });
-            //this.$router.push('/main');
+            alert("차량등록 완료!!");
+            this.$router.push('/main');
         }
     }
 }

@@ -23,7 +23,7 @@
   <br>
     <b-col md="auto" @submit="onSubmit" v-if="show">
         <p>▲ 픽업 날짜</p>
-      <b-calendar  v-model="value"  :min="min" :max="max" @context="onContext" locale="en" ></b-calendar>
+      <b-calendar v-model="value"  :min="min" :max="max" @context="onContext" locale="en" ></b-calendar>
     </b-col>
     <b-col md="auto" @submit="onSubmit" v-if="show">
         <p>▲ 반납 날짜</p>
@@ -44,6 +44,8 @@
   <br>
   <br>
   <br>
+  <p id="mind" style="display:none">{{value}}</p>
+  <p id="maxd" style="display:none">{{value}}</p>
   <p>{{param}}</p>
   </div>
 </template>
@@ -57,8 +59,6 @@ const parseURL=JSON.parse(urlJSON);
 
 var DBurl = parseURL.url;
 var attrcnt = 0;
-var mind = "";
-var maxd = "";
 
   export default {
       name:'reservartion',
@@ -70,16 +70,19 @@ var maxd = "";
     data() {
       const now = new Date()
       const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-      // 15th two months prior
+
       const minDate = new Date(today)
+      //minDate.setMonth(minDate.getMonth())
+      //minDate.setDate(3)
       minDate.setMonth(minDate.getMonth())
-      minDate.setDate(3)
-      // 15th in two months
+      minDate.setDate(1)
+
       const maxDate = new Date(today)
-      maxDate.setMonth(maxDate.getMonth())
-      maxDate.setDate(16)
-      mind = minDate
-      maxd = maxDate
+      //maxDate.setMonth(maxDate.getMonth())
+      //maxDate.setDate(15)
+      maxDate.setMonth(3)
+      maxDate.setDate(31)
+
       return {
         value: '',
         value1: '',
@@ -93,7 +96,7 @@ var maxd = "";
       }
     },
     mounted: function() {
-     axios.get(DBurl+'/v0.0.3/crbs', {})
+     axios.get('http://localhost:3000/cars', {})
             .then(function(response){
             var url = "";
             url = response.data.car[attrcnt].imageUrl;
@@ -114,18 +117,23 @@ var maxd = "";
         alert("예약이 완료되셨습니다!");
       },
       onClickreserve() {
-        axios.get(DBurl+'/v0.0.3/crbs', {})
+        var mind = document.querySelector("#mind").innerHTML;
+        var maxd = document.querySelector("#maxd").innerHTML;
+
+        axios.get('http://localhost:3000/cars', {})
         .then(function(response){
-            axios.post(DBurl+'/v0.0.3/crbs/reservations', {
+            axios.post('http://localhost:3000/reservation', {
                 "customerId" : localStorage.getItem("customer").split("@")[1],
                 "carCode" : response.data.car[attrcnt].code,
                 "startDate" : mind,
                 "endDate" : maxd
             })
             .then(function(response){
+              console.log(response.data);
                 alert("예약이 완료되었습니다.");
             })
             .catch(function(error) {
+              console.log(error.data);
                 alert("이미 예약된 차량입니다.");
             })
        });
