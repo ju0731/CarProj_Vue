@@ -18,7 +18,7 @@ hooks:
       runas: ec2-user
     - location: scripts/routerStart.sh
       timeout: 150
-      runas: root
+      runas: ec2-user
 permissions:
     - object: /
       pattern: "**"
