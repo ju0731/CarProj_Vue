@@ -3,21 +3,11 @@ var axios = require("axios");
 var app = express();
 
 
-import urlList from '../assets/url.json'
-const urlJSON = JSON.stringify(urlList)
+var urlList = require('./front.json');
+const urlJSON = JSON.stringify(urlList);
 const parseURL = JSON.parse(urlJSON);
-
-var DBurl = parseURL.url;
-
-/*
-var http = require('http');
-var hostname = 'CRBS-external-2103654058.ap-northeast-2.elb.amazonaws.com';
-
-var httpServer = http.createServer(app);
-httpServer.listen(port, function() {
-    console.log(`Server is running on ${port}`);
-});*/
-var url = "http://internal-CRBS-internal-1483526971.ap-northeast-2.elb.amazonaws.com:8090/v0.0.3/crbs";
+var url = "http://" + parseURL.value + ":8090/v0.0.3/crbs";
+//var url = "http://ec2-13-124-252-33.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs";
 var port = 3000;
 
 app.use(express.json())

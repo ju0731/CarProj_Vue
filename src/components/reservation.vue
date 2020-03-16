@@ -53,11 +53,10 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js" ></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-import urlList from '../assets/url.json'
-const urlJSON=JSON.stringify(urlList)
-const parseURL=JSON.parse(urlJSON);
-
-var DBurl = parseURL.url;
+var urlList = require('../assets/url.json');
+const urlJSON = JSON.stringify(urlList);
+const parseURL = JSON.parse(urlJSON);
+var myurl = "http://" + parseURL.myip + ":3000";
 var attrcnt = 0;
 
   export default {
@@ -96,7 +95,7 @@ var attrcnt = 0;
       }
     },
     mounted: function() {
-     axios.get('http://localhost:3000/cars', {})
+     axios.get(myurl+'/cars', {})
             .then(function(response){
             var url = "";
             url = response.data.car[attrcnt].imageUrl;
@@ -120,9 +119,9 @@ var attrcnt = 0;
         var mind = document.querySelector("#mind").innerHTML;
         var maxd = document.querySelector("#maxd").innerHTML;
 
-        axios.get('http://localhost:3000/cars', {})
+        axios.get(myurl+'/cars', {})
         .then(function(response){
-            axios.post('http://localhost:3000/reservation', {
+            axios.post(myurl+'/reservation', {
                 "customerId" : localStorage.getItem("customer").split("@")[1],
                 "carCode" : response.data.car[attrcnt].code,
                 "startDate" : mind,

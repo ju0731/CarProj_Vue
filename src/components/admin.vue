@@ -194,6 +194,11 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js" ></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
+var urlList = require('../assets/url.json');
+const urlJSON = JSON.stringify(urlList);
+const parseURL = JSON.parse(urlJSON);
+var myurl = "http://" + parseURL.myip + ":3000";
+
 var dataUrl;
 export default {
     data() {
@@ -230,18 +235,8 @@ export default {
             //console.log(dataUrl);
             var model = "";
             model = document.querySelector("#modelname").value;
-
-            console.log(document.querySelector("#carnum").value);
-            console.log(document.querySelector("#modelname").value);
-            console.log(document.querySelector("#price").value);
-            console.log(document.querySelector("#modelcolor").value);
-            console.log(document.querySelector("#fuelname").value);
-            console.log(document.querySelector("#displace").value);
-            console.log(document.querySelector("#modelsize").value);
-            console.log(dataUrl);
-            console.log(document.querySelector("#modelcnt").value);
             
-            axios.post('http://localhost:3000/enroll', {
+            axios.post(myurl+'/enroll', {
                 
                 "code" : document.querySelector("#carnum").value,
                 "name" : document.querySelector("#modelname").value,
@@ -250,7 +245,7 @@ export default {
                 "fuel" : document.querySelector("#fuelname").value,
                 "displacement" : parseInt(document.querySelector("#displace").value),
                 "size" : document.querySelector("#modelsize").value,
-                "imageUrl" : "TEST",
+                "imageUrl" : dataUrl,
                 "cnt" : parseInt(document.querySelector("#modelcnt").value)
             })
             .then(function(response){

@@ -1,8 +1,12 @@
 import axios from 'axios'
+var urlList = require('../assets/url.json');
+const urlJSON = JSON.stringify(urlList);
+const parseURL = JSON.parse(urlJSON);
+var myurl = "http://" + parseURL.myip + ":3000";
 
 class AuthService {
     login(user) {
-        return axios.post('http://localhost:3000/profile', {
+        return axios.post(myurl + '/profile', {
                 id: user.id,
                 password: user.password
             })
@@ -20,7 +24,7 @@ class AuthService {
     }
 
     register(user) {
-        return axios.post('http://localhost:3000/register', {
+        return axios.post(myurl + '/register', {
                 name: user.name,
                 id: user.id,
                 password: user.password,
