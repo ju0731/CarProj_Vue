@@ -48,6 +48,10 @@ app.delete('/delreservation', function(req, res) {
     axios.delete(url + '/mybooking/' + req.query.id + '/' + req.query.code, {})
         .then(function(response) {
             res.json(response.data);
+        })
+        .catch(function(error) {
+            if (error.response.status == 400) res.json("good");
+            else res.json("error");
         });
 });
 
@@ -60,6 +64,10 @@ app.post('/profile', function(req, res) {
         .then(response => {
             res.json(response.data);
         })
+        .catch(function(error) {
+            console.log(error.data);
+            res.json("error");
+        });
 });
 
 //회원 가입
@@ -73,6 +81,10 @@ app.post('/register', function(req, res) {
         .then(response => {
             res.json(response.data);
         })
+        .catch(function(error) {
+            console.log(error.data);
+            res.json("error");
+        });
 });
 
 //차량 예약
@@ -86,6 +98,10 @@ app.post('/reservation', function(req, res) {
         .then(response => {
             res.json(response.data);
         })
+        .catch(function(error) {
+            console.log(error.data);
+            res.json("error");
+        });
 });
 
 //차량 등록
@@ -104,6 +120,10 @@ app.post('/enroll', function(req, res) {
         .then(response => {
             res.json(response.data);
         })
+        .catch(function(error) {
+            console.log(error.data);
+            res.json("error");
+        });
 });
 
 app.listen(port, function() {

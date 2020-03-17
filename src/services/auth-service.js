@@ -31,6 +31,8 @@ class AuthService {
                 phonenumber: user.phonenumber
             })
             .then(function(response) {
+                if (response.data == "error") alert("회원가입 실패!");
+                else alert("회원가입 성공!");
                 console.log(response.data);
                 console.log("submit");
             })

@@ -249,13 +249,14 @@ export default {
                 "cnt" : parseInt(document.querySelector("#modelcnt").value)
             })
             .then(function(response){
-                console.log(response.data);
-                alert("차량등록 완료!!");
+                if(response.data=="error") {
+                    alert("차량번호 중복!!");
+                }
+                else {
+                    alert("차량등록 완료!!");
+                    location.reload();
+                }
             })
-            .catch(function(error){
-                alert("차량코드 중복 오류입니다!");
-            });
-            alert("차량등록 완료!!");
             this.$router.push('/main');
         }
     }

@@ -108,8 +108,9 @@ export default {
             axios.get(myurl+'/cars', {
             })
             .then(function(response){
-                axios.delete(myurl+"delcar?id="+response.data.car[delnum].code);
+                axios.delete(myurl+"/delcar?id="+response.data.car[delnum].code);
                 alert("삭제되었습니다.");
+                location.reload();
             });
         },
         onClickLogout() {

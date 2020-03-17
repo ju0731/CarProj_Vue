@@ -100,7 +100,6 @@ export default {
           ).then(
             this.$router.push('/Login')
           )
-          alert("회원가입 성공!");
     }
   }
 }

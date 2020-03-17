@@ -45,7 +45,7 @@
   <br>
   <br>
   <p id="mind" style="display:none">{{value}}</p>
-  <p id="maxd" style="display:none">{{value}}</p>
+  <p id="maxd" style="display:none">{{value1}}</p>
   <p>{{param}}</p>
   </div>
 </template>
@@ -128,12 +128,13 @@ var attrcnt = 0;
                 "endDate" : maxd
             })
             .then(function(response){
-              console.log(response.data);
-                alert("예약이 완료되었습니다.");
-            })
-            .catch(function(error) {
-              console.log(error.data);
-                alert("이미 예약된 차량입니다.");
+                if(response.data=="error") {
+                    alert("이미 예약된 차량입니다");
+                }
+                else {
+                    alert("예약이 완료되었습니다");
+                    location.reload();
+                }
             })
        });
             this.$router.push('/main');

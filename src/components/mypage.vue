@@ -83,7 +83,15 @@ export default {
   },
   onReserDelete(){
     axios.delete(myurl+'/delreservation?id='+id+'&code='+code)
-    alert('예약이 취소되었습니다 !');
+    .then(function(response){
+                if(response.data=="error") {
+                    alert("당일 예약은 취소가 불가능 합니다.");
+                }
+                else {
+                    alert("예약이 취소되었습니다");
+                    location.reload();
+                }
+            })
     this.$router.push('/main');
   }
 },
