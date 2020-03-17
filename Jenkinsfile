@@ -8,7 +8,7 @@ pipeline {
 EXTERNALPOINT=$(jq ".value" ../front.json -r)
 INTERNALPOINT=$(jq ".value" ../front1.json -r)
 jq -n --arg URL "$EXTERNALPOINT" --arg MYIP "$INTERNALPOINT" \\
-\'{url: $URL, myip: $MYIP}\' > ./src/asset/url.json'''
+\'{url: $URL, myip: $MYIP}\' > src/asset/url.json'''
       }
     }
 
