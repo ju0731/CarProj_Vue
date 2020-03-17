@@ -1,5 +1,6 @@
 import axios from 'axios'
-var urlList = require('../assets/url.json');
+import json from '/home/ec2-user/front/url.json'
+var urlList = json;
 const urlJSON = JSON.stringify(urlList);
 const parseURL = JSON.parse(urlJSON);
 var myurl = "http://" + parseURL.myip + ":8080/api";

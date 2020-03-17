@@ -3,7 +3,7 @@ var axios = require("axios");
 var app = express();
 
 
-var urlList = require('./src/assets/url.json');
+var urlList = require('./url.json');
 const urlJSON = JSON.stringify(urlList);
 const parseURL = JSON.parse(urlJSON);
 var url = "http://" + parseURL.url + ":8090/v0.0.3/crbs";
