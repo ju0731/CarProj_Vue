@@ -33,7 +33,7 @@ aws s3 cp ./front.tar s3://landingproject/front.tar'''
 
     stage('Create Deployment') {
       steps {
-        sh '''aws deploy create-deployment \\
+        sh '''#aws deploy create-deployment \\
     --application-name CRBS-codedeploy-app \\
     --deployment-config-name CodeDeployDefault.AllAtOnce \\
     --deployment-group-name $DG_NAME \\
