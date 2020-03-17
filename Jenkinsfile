@@ -21,7 +21,7 @@ then
 fi
 pwd
 ls .
-cp ../url.json ./src/asset/url.json
+cp ../url.json src/asset/
 tar -cvf front.tar --exclude=\'.git/*\' .'''
       }
     }
