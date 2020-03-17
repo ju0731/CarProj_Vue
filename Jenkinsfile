@@ -19,9 +19,7 @@ jq -n --arg URL "$EXTERNALPOINT" --arg MYIP "$INTERNALPOINT" \\
 then
     rm front.tar
 fi
-pwd
-ls .
-cp ../url.json src/asset/
+cp ../url.json ./
 tar -cvf front.tar --exclude=\'.git/*\' .'''
       }
     }
