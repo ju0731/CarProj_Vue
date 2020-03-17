@@ -3,10 +3,10 @@ var axios = require("axios");
 var app = express();
 
 
-var urlList = require('./front.json');
+var urlList = require('./src/assets/url.json');
 const urlJSON = JSON.stringify(urlList);
 const parseURL = JSON.parse(urlJSON);
-var url = "http://" + parseURL.value + ":8090/v0.0.3/crbs";
+var url = "http://" + parseURL.url + ":8090/v0.0.3/crbs";
 //var url = "http://ec2-13-124-252-33.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs";
 var port = 3000;
 
