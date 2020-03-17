@@ -7,6 +7,7 @@ pipeline {
         sh '''#!/bin/bash
 EXTERNALPOINT=$(jq ".value" ../front.json -r)
 INTERNALPOINT=$(jq ".value" ../front1.json -r)
+pwd
 jq -n --arg URL "$EXTERNALPOINT" --arg MYIP "$INTERNALPOINT" \\
 \'{url: $URL, myip: $MYIP}\' > src/asset/url.json'''
       }
