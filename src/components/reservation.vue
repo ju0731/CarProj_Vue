@@ -56,7 +56,7 @@
 var urlList = require('../assets/url.json');
 const urlJSON = JSON.stringify(urlList);
 const parseURL = JSON.parse(urlJSON);
-var myurl = "http://" + parseURL.myip + ":3000";
+var myurl = "http://" + parseURL.myip + ":8080/api";
 var attrcnt = 0;
 
   export default {

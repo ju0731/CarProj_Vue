@@ -19,7 +19,7 @@ app.use(function(req, res, next) {
 });
 
 //차량 조회
-app.get('/cars', function(req, res) {
+app.get('/api/cars', function(req, res) {
     axios.get(url, {})
         .then(function(response) {
             res.json(response.data);
@@ -28,7 +28,7 @@ app.get('/cars', function(req, res) {
 });
 
 //예약 조회
-app.get('/reservations', function(req, res) {
+app.get('/api/reservations', function(req, res) {
     axios.get(url + '/mybooking/' + req.query.id, {})
         .then(function(response) {
             res.json(response.data);
@@ -36,7 +36,7 @@ app.get('/reservations', function(req, res) {
 });
 
 //차량 삭제
-app.delete('/delcar', function(req, res) {
+app.delete('/api/delcar', function(req, res) {
     axios.delete(url + '/admins/' + req.query.id, {})
         .then(function(response) {
             res.json(response.data);
@@ -44,7 +44,7 @@ app.delete('/delcar', function(req, res) {
 });
 
 //예약 삭제
-app.delete('/delreservation', function(req, res) {
+app.delete('/api/delreservation', function(req, res) {
     axios.delete(url + '/mybooking/' + req.query.id + '/' + req.query.code, {})
         .then(function(response) {
             res.json(response.data);
@@ -56,7 +56,7 @@ app.delete('/delreservation', function(req, res) {
 });
 
 //로그인 예정
-app.post('/profile', function(req, res) {
+app.post('/api/profile', function(req, res) {
     axios.post(url + '/users/signin', {
             id: req.body.id,
             password: req.body.password
@@ -71,7 +71,7 @@ app.post('/profile', function(req, res) {
 });
 
 //회원 가입
-app.post('/register', function(req, res) {
+app.post('/api/register', function(req, res) {
     axios.post(url + '/users', {
             name: req.body.name,
             id: req.body.id,
@@ -88,7 +88,7 @@ app.post('/register', function(req, res) {
 });
 
 //차량 예약
-app.post('/reservation', function(req, res) {
+app.post('/api/reservation', function(req, res) {
     axios.post(url + '/reservations', {
             customerId: req.body.customerId,
             carCode: req.body.carCode,
@@ -105,7 +105,7 @@ app.post('/reservation', function(req, res) {
 });
 
 //차량 등록
-app.post('/enroll', function(req, res) {
+app.post('/api/enroll', function(req, res) {
     axios.post(url + '/admins', {
             code: req.body.code,
             name: req.body.name,
