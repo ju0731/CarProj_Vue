@@ -49,8 +49,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js" ></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-import json from '/home/ec2-user/front/url.json'
-var urlList = json;
+var urlList = require('../assets/url.json');
 const urlJSON = JSON.stringify(urlList);
 const parseURL = JSON.parse(urlJSON);
 var myurl = "http://" + parseURL.myip + ":8080/api";
