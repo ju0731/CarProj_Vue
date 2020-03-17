@@ -194,7 +194,8 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js" ></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-import json from 'C:/Users/hanju.kim/hanju/url.json'
+//import json from 'C:/Users/hanju.kim/hanju/url.json'
+import json from '/home/ec2-user/front/url.json'
 var urlList = json;
 //var urlList = require('.../url.json');
 const urlJSON = JSON.stringify(urlList);
