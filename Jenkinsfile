@@ -4,6 +4,11 @@ pipeline {
     stage('Git clone') {
       steps {
         git(url: 'https://github.com/bsp-incubation/booking-ui.git', branch: 'master', credentialsId: 'woodchuckchoi')
+        sh '''#!/bin/bash
+EXTERNALPOINT=$(jq ".value" ../front.json -r)
+INTERNALPOINT=$(jq ".value" ../front1.json -r)
+jq -n --arg URL "$EXTERNALPOINT" --arg MYIP "$INTERNALPOINT" \\
+\'{url: $URL, myip: $MYIP}\' > ./src/asset/url.json'''
       }
     }
 
