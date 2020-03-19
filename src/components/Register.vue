@@ -18,7 +18,7 @@
             />
           </div>
           <div class="form-group">
-            <label for="id">ID please</label>
+            <label for="id">id</label>
             <input
               type="text"
               class="form-control"

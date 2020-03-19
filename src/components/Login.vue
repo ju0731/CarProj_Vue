@@ -79,10 +79,16 @@ export default {
      if (this.user.id && this.user.password) {
        
         this.$store.dispatch('auth/login', this.user).then(
-          () => {
-            alert('환영합니다!')
-            localStorage.setItem("customer", "customer@"+this.user.id)
-            this.$router.push('/main')
+          response => {
+            if(response=="error") {
+              alert('정보를 다시 확인해주세요!')
+              this.loading = false;
+            }
+            else {
+              alert('환영합니다!')
+              localStorage.setItem("customer", "customer@"+this.user.id)
+              this.$router.push('/main')
+            }
           },
           error => {
             alert('정보를 다시 확인해주세요!')
