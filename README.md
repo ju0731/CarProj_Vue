@@ -1,6 +1,6 @@
 # todos-client
 
-## Project setup
+## Project setup.
 ```
 npm install
 ```
