@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Git clone') {
       steps {
-        git(url: 'https://github.com/bsp-incubation/booking-ui.git', branch: 'master', credentialsId: 'woodchuckchoi')
+        git(url: 'https://github.com/bsp-incubation/booking-ui.git', branch: 'master', credentialsId: 'woodchuckchoi', poll: true)
         sh '''#!/bin/bash
 EXTERNALPOINT=$(jq ".value" ../front.json -r)
 INTERNALPOINT=$(jq ".value" ../front1.json -r)
