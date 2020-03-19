@@ -64,12 +64,13 @@ export default {
   },
   mounted:function() {
     id = localStorage.getItem("customer").split("@")[1];
+    document.querySelector("#customer_id").innerHTML = id+" 회원님 환영합니다!";
     axios.get(myurl+'/reservations?id='+id)
     .then(function(response){
       if(response.data.length>0) {
         code = response.data[0].code;
         var cnt = response.data.length-1;
-        document.querySelector("#customer_id").innerHTML = id+" 회원님 환영합니다!";
+        //document.querySelector("#customer_id").innerHTML = id+" 회원님 환영합니다!";
         document.querySelector("#name").innerHTML = response.data[cnt].name;
         document.querySelector("#car_code").innerHTML = "차 코드: "+response.data[cnt].code;
         document.querySelector("#startdate").innerHTML = "픽업 : "+response.data[cnt].startDate;
