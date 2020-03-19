@@ -68,8 +68,8 @@ export default {
     axios.get(myurl+'/reservations?id='+id)
     .then(function(response){
       if(response.data.length>0) {
-        code = response.data[0].code;
         var cnt = response.data.length-1;
+        code = response.data[cnt].code;
         //document.querySelector("#customer_id").innerHTML = id+" 회원님 환영합니다!";
         document.querySelector("#name").innerHTML = response.data[cnt].name;
         document.querySelector("#car_code").innerHTML = "차 코드: "+response.data[cnt].code;
@@ -85,6 +85,7 @@ export default {
   onReserDelete(){
     axios.delete(myurl+'/delreservation?id='+id+'&code='+code)
     .then(function(response){
+      console.log(response.data);
                 if(response.data=="error") {
                     alert("당일 예약은 취소가 불가능 합니다.");
                 }

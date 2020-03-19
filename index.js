@@ -7,7 +7,7 @@ var urlList = require('./src/assets/url.json');
 const urlJSON = JSON.stringify(urlList);
 const parseURL = JSON.parse(urlJSON);
 var url = "http://" + parseURL.url + ":8090/v0.0.3/crbs";
-//var url = "http://ec2-13-124-252-33.ap-northeast-2.compute.amazonaws.com:8090/v0.0.3/crbs";
+
 var port = 3000;
 
 app.use(express.json())
@@ -50,7 +50,8 @@ app.delete('/api/delreservation', function(req, res) {
             res.json(response.data);
         })
         .catch(function(error) {
-            if (error.response.status == 400) res.json("good");
+            console.log(error.response);
+            if (error.response.status == 201) res.json("good");
             else res.json("error");
         });
 });
