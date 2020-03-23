@@ -2,7 +2,6 @@ var express = require('express');
 var axios = require("axios");
 var app = express();
 
-
 var urlList = require('./src/assets/url.json');
 const urlJSON = JSON.stringify(urlList);
 const parseURL = JSON.parse(urlJSON);

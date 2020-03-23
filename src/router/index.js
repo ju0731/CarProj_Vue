@@ -7,7 +7,17 @@ Vue.use(VueRouter);
 const routes = [{
         path: "/",
         name: "Home",
-        component: Home
+        component: Home //,
+            //beforeEnter(to, from, next) {
+            //beforeEnter() {
+            //console.log(router);
+            /*
+            if (this.default.app.$session.exists()) {
+                next()
+            } else {
+                next('/main')
+            }*/
+            //}
     },
     {
         path: "/main",
@@ -56,6 +66,7 @@ const routes = [{
 const router = new VueRouter({
     mode: "history",
     base: process.env.BASE_URL,
+    fallback: true,
     routes
 });
 
