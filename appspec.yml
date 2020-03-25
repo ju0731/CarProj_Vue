@@ -22,6 +22,10 @@ hooks:
     - location: scripts/routerStart.sh
       timeout: 150
       runas: ec2-user
+  ApplicationStop:
+    - location: scripts/applicationStop.sh
+      timeout: 300
+      runas: ec2-user
 permissions:
     - object: /
       pattern: "**"
