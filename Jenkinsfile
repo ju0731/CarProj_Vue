@@ -34,7 +34,6 @@ aws s3 cp ./front.tar s3://landingproject/front.tar'''
       when {
         branch 'feature1'
       }
-
       steps {
         sh '''aws deploy create-deployment \\
     --application-name CRBS-codedeploy-app \\
@@ -48,6 +47,6 @@ aws s3 cp ./front.tar s3://landingproject/front.tar'''
 
   }
   environment {
-    DG_NAME = 'CRBS-UI-deployment-group'
+    DG_NAME = 'CRBS-UI-deployment-group1'
   }
 }
