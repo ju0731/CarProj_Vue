@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Git clone') {
       steps {
-        git(url: 'https://github.com/bsp-incubation/booking-ui.git', branch: 'master', credentialsId: 'hanju_key')
+        git(url: 'https://github.com/bsp-incubation/booking-ui.git', branch: 'feature1', credentialsId: 'hanju_key')
         sh '''#!/bin/bash
 EXTERNALPOINT=$(jq ".value" ../front.json -r)
 INTERNALPOINT=$(jq ".value" ../front1.json -r)
@@ -31,9 +31,9 @@ aws s3 cp ./front.tar s3://landingproject/front.tar'''
     }
 
     stage('Create Deployment') {
-	  when {
-		branch 'feature1'
-	  }
+      when {
+        branch 'feature1'
+      }
       steps {
         sh '''aws deploy create-deployment \\
     --application-name CRBS-codedeploy-app \\
