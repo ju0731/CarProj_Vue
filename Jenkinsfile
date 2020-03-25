@@ -32,7 +32,7 @@ aws s3 cp ./front.tar s3://landingproject/front.tar'''
 
     stage('Create Deployment') {
       when {
-        branch 'pipeline'
+        branch 'feature1'
       }
 
       steps {
