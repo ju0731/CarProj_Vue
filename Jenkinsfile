@@ -31,6 +31,10 @@ aws s3 cp ./front.tar s3://landingproject/front.tar'''
     }
 
     stage('Create Deployment') {
+      when {
+        branch 'test'
+      }
+
       steps {
         sh '''aws deploy create-deployment \\
     --application-name CRBS-codedeploy-app \\
