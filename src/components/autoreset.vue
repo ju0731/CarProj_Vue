@@ -1,4 +1,4 @@
-<template>
+2<template>
     <main role="main">
         <div class="navbar navbar-dark bg-dark shadow-sm">
             <div class="container d-flex justify-content-between">
@@ -35,6 +35,10 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js" ></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
+setTimeout(function(){
+    location.reload();
+},2000);
+
 var urlList = require('../assets/url.json');
 const urlJSON = JSON.stringify(urlList);
 const parseURL = JSON.parse(urlJSON);
@@ -122,7 +126,7 @@ export default {
             this.$router.push('/login');
         },
         onClickReset() {
-            this.$router.push('/autoreset');
+            location.reload()
         }
     }
 }
