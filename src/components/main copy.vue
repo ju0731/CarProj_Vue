@@ -122,7 +122,7 @@ export default {
             this.$router.push('/login');
         },
         onClickReset() {
-            this.$router.push('/autoreset');
+            location.reload()
         }
     }
 }

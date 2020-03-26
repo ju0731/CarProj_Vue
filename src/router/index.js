@@ -16,6 +16,12 @@ const routes = [{
             import ("../components/main.vue")
     },
     {
+        path: "/autoreset",
+        name: "autoreset",
+        component: () =>
+            import ("../components/autoreset.vue")
+    },
+    {
         path: "/admin",
         name: "admin",
         component: () =>

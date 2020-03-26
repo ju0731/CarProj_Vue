@@ -1,4 +1,4 @@
-<template>
+2<template>
     <main role="main">
         <div class="navbar navbar-dark bg-dark shadow-sm">
             <div class="container d-flex justify-content-between">
@@ -9,7 +9,7 @@
                 <b-button variant="btn btn-sm btn-outline-secondary" @click="onClickLogout">로그아웃</b-button>
             </div>
         </div>
-        <section class="jumbotron text-center" style="background-color: #BBDEFB">
+        <section class="jumbotron text-center">
             <div class="container">
                 <h1>Automation Car sharing</h1>
                 <p class="lead text-muted">Select your car from list below.</p>
@@ -35,6 +35,10 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js" ></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
+setTimeout(function(){
+    location.reload();
+},2000);
+
 var urlList = require('../assets/url.json');
 const urlJSON = JSON.stringify(urlList);
 const parseURL = JSON.parse(urlJSON);
@@ -122,7 +126,7 @@ export default {
             this.$router.push('/login');
         },
         onClickReset() {
-            this.$router.push('/autoreset');
+            location.reload()
         }
     }
 }
