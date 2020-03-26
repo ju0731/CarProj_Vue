@@ -40,6 +40,7 @@ const urlJSON = JSON.stringify(urlList);
 const parseURL = JSON.parse(urlJSON);
 var myurl = "http://" + parseURL.myip + ":8080/api";
 
+var carcnt = 0;
 var reservename = "";
 var deletename = "";
 export default {
@@ -55,7 +56,7 @@ export default {
 
         for(var i=0; i<response.data.car.length; i++) {
             var id = localStorage.getItem("customer").split("@")[1];
-            var carcnt = response.data.car[i].cnt;
+            carcnt = response.data.car[i].cnt;
             if(carcnt==0) { carcnt = " 재고없음 "; }
             else { carcnt = "재고 : " + carcnt; }
             if(id=="auto") {
@@ -102,8 +103,13 @@ export default {
             }
         },
         onClickReservation() {
+            if(carcnt<1) {
+                alert("차량 재고가 없습니다.");
+            }
+            else {
             console.log(document.querySelector("#"+reservename).value);
             this.$router.push('/reservation/'+document.querySelector("#"+reservename).value);
+            }
         },
         onClickDelete() {
             var delnum = deletename.split("del")[1];
