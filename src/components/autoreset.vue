@@ -94,7 +94,7 @@ export default {
                 this.$router.push('/admin');
             }
             else {
-                alert("관리자만 이용 가능합니다");
+                alert("관리자만 이용 가능합니다.");
             }
         },
         onClickmyPage() {
