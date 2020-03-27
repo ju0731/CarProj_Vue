@@ -9,7 +9,7 @@
                 <b-button variant="btn btn-sm btn-outline-secondary" @click="onClickLogout">로그아웃</b-button>
             </div>
         </div>
-        <section class="jumbotron text-center" style="background-color: #BBDEFB">
+        <section class="jumbotron text-center">
             <div class="container">
                 <h1>Automation Car sharing</h1>
                 <p class="lead text-muted">Select your car from list below.</p>
