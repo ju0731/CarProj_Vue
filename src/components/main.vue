@@ -9,7 +9,7 @@
                 <b-button variant="btn btn-sm btn-outline-secondary" @click="onClickLogout">로그아웃</b-button>
             </div>
         </div>
-        <section class="jumbotron text-center">
+        <section class="jumbotron text-center" style="background-color: #BBDEFB">
             <div class="container">
                 <h1>Automation Car sharing</h1>
                 <p class="lead text-muted">Select your car from list below.</p>
@@ -40,7 +40,6 @@ const urlJSON = JSON.stringify(urlList);
 const parseURL = JSON.parse(urlJSON);
 var myurl = "http://" + parseURL.myip + ":8080/api";
 
-var carcnt = 0;
 var reservename = "";
 var deletename = "";
 export default {
@@ -56,8 +55,8 @@ export default {
 
         for(var i=0; i<response.data.car.length; i++) {
             var id = localStorage.getItem("customer").split("@")[1];
-            carcnt = response.data.car[i].cnt;
-            if(carcnt==0) { carcnt = " 재고없음 "; }
+            var carcnt = response.data.car[i].cnt;
+            if(carcnt==-1) { carcnt = " 재고없음 "; }
             else { carcnt = "재고 : " + carcnt; }
             if(id=="auto") {
             document.querySelector(".row").insertAdjacentHTML("beforeend", "<div class='col-md-4'><div class='card mb-4 shadow-sm'><svg class='bd-placeholder-img card-img-top' width='100%' height='200px' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMidYMid slice' focusable='false' role='img' aria-label='Placeholder: Thumbnail'><title>CarImage</title><image xlink:href='"+response.data.car[i].imageUrl+"' width='100%' height='100%' /></svg><div class='card-body'><p>"+response.data.car[i].name+"</p><small class='text-muted'>"+response.data.car[i].fuel+"</small><br><small class='text-muted'>"+response.data.car[i].size+"</small><p class='card-text'>"+response.data.car[i].price+"/일</p><hr class='mb-4'><div class='d-flex justify-content-between align-items-center'><div class='btn-group'><button class='btn btn-sm btn-outline-secondary' id='car"+i+"' style='width:70px' value='"+i+"'>예약</button><button class='btn btn-sm btn-outline-secondary' id='del"+i+"' style='width:70px' value='"+i+"'>삭제</button></div><small class='badge badge-secondary badge-pill' style='width:70px;height:20px;font-size:13px;'>"+carcnt+"</small></div></div></div></div>");
@@ -103,13 +102,8 @@ export default {
             }
         },
         onClickReservation() {
-            if(carcnt<1) {
-                alert("차량 재고가 없습니다.");
-            }
-            else {
             console.log(document.querySelector("#"+reservename).value);
             this.$router.push('/reservation/'+document.querySelector("#"+reservename).value);
-            }
         },
         onClickDelete() {
             var delnum = deletename.split("del")[1];
